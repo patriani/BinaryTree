@@ -16,22 +16,14 @@ Treap;
 
 using namespace std;
 /*
-CriaArvore() : cria uma árvore binária vazia;
-
 ● localiza (k,T) : retorna uma referência para o nó da
 árvore T que contém a chave igual a k; caso não
 exista nenhum item com esta chave, retorna (NULL);
-● insere(x,T) : insere o item x na árvore T;
 ● elimina(k,T) : elimina da árvore T, o item cuja chave
 é igual a k.
-max(T) : retorna uma referência para o nó que
-contém o item com a maior chave na árvore T;
-● min(T) : retorna uma referência para o nó que
-contém o item com a menor chave na árvore T;
-● estaVazia(T) : retorna verdadeiro caso a árvore T
-esteja vazia e retorna falso caso contrário.
-● imprime(T) : imprime (em ordem crescente) os
-elementos armazenados na árvore
+max(T) : busca última folha à direita;
+● min(T) : busca última folha à esquerda;
+● imprime(T) : 
 */
 struct NODE{
     int elem;
@@ -46,11 +38,23 @@ NODE* criaArvore(int elem){
     first->l=NULL;
     return(first);
 }
+
 int estaVazia(NODE* root){
     if(root == NULL)
         return 1; // 1 para sim
     else 
         return 0; // 0 para não 
+}
+
+NODE* busca(NODE* root, int elem){
+    if(!estaVazia(root)){
+        if(elem < root->elem)
+            busca(root->l,elem);
+        else if(elem > root->elem)
+            busca(root->r,elem);
+        return(root);
+    }else
+    return(NULL);
 }
 
 NODE* insere(NODE* root, int elem){
@@ -100,6 +104,15 @@ int main(){
         root = insere(root,elem);
         cont++;
     }
+    //exemplo de busca pelo emento inteiro = 3
+
+    root = busca(root,3);
+
+    if(root!=NULL)
+        printf("\n ok \n");
+    else
+        printf("\n error \n");
+    
 
     return 0;
 }
