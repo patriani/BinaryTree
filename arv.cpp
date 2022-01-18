@@ -4,15 +4,12 @@ Binária de Pesquisa{
     esq: valor maior q raiz local
     dir: valor maior q raiz local
 };
-Heap;
-Fila de Prioridade (máxima e mínima);
-Arvore AVL;
-Treap;
 */
 
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+
 
 using namespace std;
 /*
@@ -85,10 +82,30 @@ NODE* insere(NODE* root, int elem){
     return(root);
 }
 
+int imprimir_em_ordem(NODE* root){
+    if(root->l == NULL && root->r == NULL){
+        printf("%d\n",root->elem);
+        return(1);
+    }
+    if(root->l != NULL)
+        imprimir_em_ordem(root->l);
+
+    printf("%d\n",root->elem); //imprime raiz (local ou global)
+
+    if (root->r != NULL)
+        imprimir_em_ordem(root->r);
+
+    //printf("%d\n",root->elem); //imprime raiz
+    return(1);
+    
+}
+
 int main(){
     struct NODE* root = new NODE;
+    struct NODE* res_busca = new NODE;
     int cont, n; // cont vai de 0 a n-1 para delimitar o while
 
+    res_busca = NULL;
     root = NULL;
     cont = 0;
     n = 0;
@@ -99,20 +116,20 @@ int main(){
 
     while(cont < n){
         int elem;
-        printf("it\n");
         scanf("%d",&elem);
         root = insere(root,elem);
         cont++;
     }
     //exemplo de busca pelo emento inteiro = 3
+    /*
+    res_busca = busca(root,3);
 
-    root = busca(root,3);
-
-    if(root!=NULL)
+    if(res_busca!=NULL)
         printf("\n ok \n");
     else
         printf("\n error \n");
-    
+    */
+   imprimir_em_ordem(root);
 
     return 0;
 }
